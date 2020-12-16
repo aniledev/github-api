@@ -2,19 +2,38 @@
 
 const apiKey = "";
 
-const displayReults = function () {};
+const displayReults = function (responseJson, maxResults) {
+  console.log(responseJson);
+  $("#results").empty();
+};
 
 const getRepos = function (maxResults = 10, repoType = "all") {
   const params = {
     per_page: maxResults,
     type: repoType,
   };
+
   const userName = $("#username").val();
   const BASE_URL = `https://api.github.com/users/${userName}/repos`;
   const queryString = formatQueryParams(params);
   const completeURL = BASE_URL + "?" + queryString;
 
   console.log(completeURL);
+
+  const options = {
+    headers: new Headers({
+      accept: "application/vnd.github.v3+json",
+    }),
+  };
+
+  fetch(completeURL, options)
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error(response.statusText);
+    })
+    .then((responseJson) => displayReults(responseJson, maxResults));
 };
 
 const formatQueryParams = function (params) {
