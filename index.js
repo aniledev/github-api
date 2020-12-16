@@ -4,7 +4,13 @@ const apiKey = "";
 
 const displayReults = function (responseJson, maxResults) {
   console.log(responseJson);
-  $("#results").empty();
+  $("#search-results").empty();
+
+  for (let i = 0; i < responseJson.length; i++) {
+    $("#search-results").append(`<li>
+    <h3><a href="${responseJson[i].html_url}">${responseJson[i].name}</a></h3><p>${responseJson[i].description}</p>
+    </li>`);
+  }
 };
 
 const getRepos = function (maxResults = 10, repoType = "all") {
