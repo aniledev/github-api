@@ -8,7 +8,7 @@ const displayReults = function (responseJson, maxResults) {
 
   for (let i = 0; i < responseJson.length; i++) {
     $("#search-results").append(`<li>
-    <h3><a href="${responseJson[i].html_url}">${responseJson[i].name}</a></h3><p>${responseJson[i].description}</p>
+    <h3><a target="_blank" href="${responseJson[i].html_url}">${responseJson[i].name}</a></h3><p>${responseJson[i].description}</p>
     </li>`);
   }
 };
